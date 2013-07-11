@@ -166,7 +166,7 @@ echo "updating path..." | indent
 PATH=$PATH:$BUILD_DIR/.swig/swig/bin/
 export PATH
 echo $PATH | indent
-echo "setting SWIG_LIB environment var"
+echo "setting SWIG_LIB environment var" | indent
 export SWIG_LIB=$BUILD_DIR/.swig/swig/share/swig/2.0.5/
 
 
