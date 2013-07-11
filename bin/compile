@@ -147,6 +147,29 @@ if [ "$FRESH_PYTHON" ] || [[ ! $(pip --version) == *$PIP_VERSION* ]]; then
   cd $WORKING_DIR
 fi
 
+# Install SWIG
+if [ ! -d $CACHE_DIR/swig ]; then
+  cd $BUILD_DIR
+  echo "-----> Fetching and installing SWIG 2"
+  curl -O http://jvc26.org/swig.tar.gz >/dev/null 2>&1
+  echo "-----> Installing ..."
+  tar xzvf swig.tar.gz >/dev/null 2>&1
+  mv swig $CACHE_DIR/swig
+  rm swig.tar.gz
+  echo "SWIG installed" | indent
+fi
+
+mkdir -p .swig
+cp -R $CACHE_DIR/swig .swig
+
+echo "updating path..." | indent
+PATH=$PATH:$BUILD_DIR/.swig/swig/bin/
+export PATH
+echo $PATH | indent
+echo "setting SWIG_LIB environment var"
+export SWIG_LIB=$BUILD_DIR/.swig/swig/share/swig/2.0.5/
+
+
 set -e
 hash -r
 
